@@ -1,16 +1,16 @@
+import { inject, injectable } from 'tsyringe';
 import { Api } from '../infra/orm/entities/api.entity';
-import { ApiRespositoryProvider } from '../infra/orm/providers/api-repository.provider';
-import { ApiRepsitory } from '../infra/orm/repositories/api.repository';
+import { ApiRepositoryProvider } from '../infra/orm/providers/api-repository.provider';
 
+@injectable()
 export class FindAllApisService {
-    private repository: ApiRespositoryProvider;
-
-    constructor() {
-        this.repository = new ApiRepsitory();
-    }
+    constructor(
+        @inject('ApiRepository')
+        private apiRepository: ApiRepositoryProvider,
+    ) {}
 
     public async excecute(): Promise<Api[]> {
-        const apis = await this.repository.find();
+        const apis = await this.apiRepository.find();
         return apis;
     }
 }

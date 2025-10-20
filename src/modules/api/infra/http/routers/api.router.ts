@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import { ApiController } from '../controllers/api.controller';
+import { AuthMiddleware } from '@src/shared/middlewares/auth.middleware';
 
 const apiRouter = Router();
+apiRouter.use(new AuthMiddleware().use);
 const apiController = new ApiController();
 
 apiRouter.post(

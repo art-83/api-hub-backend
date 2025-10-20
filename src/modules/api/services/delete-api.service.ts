@@ -1,14 +1,14 @@
-import { ApiRespositoryProvider } from '../infra/orm/providers/api-repository.provider';
-import { ApiRepsitory } from '../infra/orm/repositories/api.repository';
+import { inject, injectable } from 'tsyringe';
+import { ApiRepositoryProvider } from '../infra/orm/providers/api-repository.provider';
 
+@injectable()
 export class DeleteApiService {
-    private repository: ApiRespositoryProvider;
-
-    constructor() {
-        this.repository = new ApiRepsitory();
-    }
+    constructor(
+        @inject('ApiRepository')
+        private apiRepository: ApiRepositoryProvider,
+    ) {}
 
     public async excecute(id: string): Promise<void> {
-        await this.repository.delete(id);
+        await this.apiRepository.delete(id);
     }
 }

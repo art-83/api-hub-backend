@@ -1,6 +1,6 @@
 import { Api } from '../entities/api.entity';
 
-export interface ApiRespositoryProvider {
+export interface ApiRepositoryProvider {
     find(): Promise<Api[]>;
     findOne(id: string): Promise<Api | null>;
     create(api: Partial<Api>): Promise<Api>;

@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
 import { Api } from '../entities/api.entity';
-import { ApiRespositoryProvider } from '../providers/api-repository.provider';
-import { dataSource } from '@src/@config/data-source.config';
+import { ApiRepositoryProvider } from '../providers/api-repository.provider';
+import { dataSource } from '@src/@config/database/data-source.config';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
 
-export class ApiRepsitory implements ApiRespositoryProvider {
+export class ApiRepository implements ApiRepositoryProvider {
     private readonly repository: Repository<Api>;
 
     constructor() {

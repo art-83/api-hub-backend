@@ -17,10 +17,10 @@ export class Api {
     @Column()
     description: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     github: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     deploy_url: string;
 
     @Column()
