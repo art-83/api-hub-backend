@@ -8,7 +8,9 @@ export class JwtImplementation implements JwtProvider {
         const token = jwt.sign(
             JwtPayloadDto,
             jwtConfig.secret as string,
-            { expiresIn: jwtConfig.expiresIn } as jwt.SignOptions,
+            {
+                expiresIn: jwtConfig.expiresIn,
+            } as jwt.SignOptions,
         );
         return token;
     }
@@ -18,4 +20,3 @@ export class JwtImplementation implements JwtProvider {
         return decoded;
     }
 }
-

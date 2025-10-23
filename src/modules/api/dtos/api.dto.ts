@@ -1,4 +1,4 @@
-export class ApiDto {
+export class ApiDTO {
     id?: string;
     title?: string;
     description?: string;

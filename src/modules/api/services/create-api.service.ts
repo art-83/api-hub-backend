@@ -1,8 +1,7 @@
 import { inject, injectable } from 'tsyringe';
-import { ApiDto } from '../dtos/api.dto';
+import { ApiDTO } from '../dtos/api.dto';
 import { Api } from '../infra/orm/entities/api.entity';
-import { ApiRepositoryProvider } from '../infra/orm/providers/api-repository.provider';
-import { ApiRepository } from '../infra/orm/implementations/api-repository.implementation';
+import { ApiRepositoryProvider } from '../infra/orm/repositories/providers/api-repository.provider';
 
 @injectable()
 export class CreateApiService {
@@ -11,7 +10,7 @@ export class CreateApiService {
         private apiRepository: ApiRepositoryProvider,
     ) {}
 
-    public async excecute(data: ApiDto): Promise<Api> {
+    public async excecute(data: ApiDTO): Promise<Api> {
         const createApi = await this.apiRepository.create(data);
         return createApi;
     }

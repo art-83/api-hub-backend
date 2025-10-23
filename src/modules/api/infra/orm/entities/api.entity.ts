@@ -1,12 +1,8 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity({ name: 'apis' })
+@Entity({
+    name: 'apis',
+})
 export class Api {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -17,10 +13,14 @@ export class Api {
     @Column()
     description: string;
 
-    @Column({ nullable: true })
+    @Column({
+        nullable: true,
+    })
     github: string;
 
-    @Column({ nullable: true })
+    @Column({
+        nullable: true,
+    })
     deploy_url: string;
 
     @Column()

@@ -5,6 +5,7 @@ import { AuthMiddleware } from '@src/shared/middlewares/auth.middleware';
 
 const apiRouter = Router();
 apiRouter.use(new AuthMiddleware().use);
+
 const apiController = new ApiController();
 
 apiRouter.post(
@@ -22,16 +23,20 @@ apiRouter.post(
     apiController.create,
 );
 
-apiRouter.get('/', apiController.findAll);
-
 apiRouter.get(
-    '/:id',
+    '/',
     celebrate({
-        [Segments.PARAMS]: {
-            id: Joi.string().uuid().required(),
+        [Segments.QUERY]: {
+            id: Joi.string().uuid().optional(),
+            title: Joi.string().optional(),
+            description: Joi.string().optional(),
+            github: Joi.string().optional(),
+            deploy_url: Joi.string().optional(),
+            type: Joi.string().valid('HTML', 'MD').optional(),
+            text_content: Joi.string().optional(),
         },
     }),
-    apiController.findOne,
+    apiController.find,
 );
 
 apiRouter.put(

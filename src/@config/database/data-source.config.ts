@@ -13,5 +13,5 @@ export const dataSource = new DataSource({
     database: process.env.TYPEORM_DATABASE,
     synchronize: Boolean(process.env.TYPEORM_SYNCRONIZE),
     entities: [__dirname + process.env.TYPEORM_ENTITIES],
-    dropSchema: true,
+    dropSchema: Boolean(process.env.TYPEORM_DROP_SCHEMA),
 });

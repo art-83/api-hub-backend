@@ -1,6 +1,6 @@
 import { Api } from '../infra/orm/entities/api.entity';
-import { ApiDto } from '../dtos/api.dto';
-import { ApiRepositoryProvider } from '../infra/orm/providers/api-repository.provider';
+import { ApiDTO } from '../dtos/api.dto';
+import { ApiRepositoryProvider } from '../infra/orm/repositories/providers/api-repository.provider';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
 import { inject, injectable } from 'tsyringe';
 
@@ -11,8 +11,12 @@ export class UpdateApiService {
         private apiRepository: ApiRepositoryProvider,
     ) {}
 
-    public async excecute(id: string, data: Partial<ApiDto>): Promise<Api> {
-        const api = await this.apiRepository.findOne(id);
+    public async excecute(id: string, data: Partial<ApiDTO>): Promise<Api> {
+        const api = (
+            await this.apiRepository.find({
+                id,
+            })
+        ).at(0);
 
         if (!api) throw new AppError(404, 'Api not found');
 

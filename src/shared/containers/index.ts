@@ -1,13 +1,14 @@
-import { ApiRepositoryProvider } from '@src/modules/api/infra/orm/providers/api-repository.provider';
-import { ApiRepository } from '@src/modules/api/infra/orm/implementations/api-repository.implementation';
+import { ApiRepositoryProvider } from '@src/modules/api/infra/orm/repositories/providers/api-repository.provider';
+import { ApiRepository } from '@src/modules/api/infra/orm/repositories/implementations/api-repository.implementation';
 
 import { JwtImplementation } from '@src/modules/users/infra/auth/infra/implementations/jwt.implementation';
 import { JwtProvider } from '@src/modules/users/infra/auth/infra/providers/jwt.provider';
+
 import { HashImplementation } from '@src/modules/users/infra/hash/implementation/hash.implementation';
 import { HashProvider } from '@src/modules/users/infra/hash/providers/hash.provider';
 
-import { UserRepositoryProvider } from '@src/modules/users/infra/orm/providers/user-repository.provider';
-import { UserRepository } from '@src/modules/users/infra/orm/implementations/user-repository.implementation';
+import { UserRepositoryProvider } from '@src/modules/users/infra/orm/repositories/providers/user-repository.provider';
+import { UserRepository } from '@src/modules/users/infra/orm/repositories/implementations/user-repository.implementation';
 
 import { container } from 'tsyringe';
 

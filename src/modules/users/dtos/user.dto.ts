@@ -1,4 +1,4 @@
-export class UserDto {
+export class UserDTO {
     id?: string;
     name?: string;
     github?: string;

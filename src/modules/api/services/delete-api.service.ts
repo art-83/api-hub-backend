@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { ApiRepositoryProvider } from '../infra/orm/providers/api-repository.provider';
+import { ApiRepositoryProvider } from '../infra/orm/repositories/providers/api-repository.provider';
 
 @injectable()
 export class DeleteApiService {

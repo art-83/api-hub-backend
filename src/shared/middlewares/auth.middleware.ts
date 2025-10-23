@@ -7,11 +7,9 @@ export class AuthMiddleware {
     public use(request: Request, response: Response, next: NextFunction): void {
         const authHeader = request.headers.authorization;
 
-        if (!authHeader) throw new AppError(401, 'Token not provided'); 
+        if (!authHeader) throw new AppError(401, 'Token not provided');
 
         const token = authHeader.split(' ').at(1);
-
-        console.log(token)
 
         try {
             const decodeJwtService = container.resolve(DecodeJwtService);

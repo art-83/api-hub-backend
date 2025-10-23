@@ -1,6 +1,8 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity({ name: 'users' })
+@Entity({
+    name: 'users',
+})
 export class User {
     @PrimaryGeneratedColumn()
     id: string;
@@ -8,10 +10,14 @@ export class User {
     @Column()
     name: string;
 
-    @Column( {nullable: true} )
+    @Column({
+        nullable: true,
+    })
     github: string;
 
-    @Column()
+    @Column({
+        unique: true,
+    })
     email: string;
 
     @Column()

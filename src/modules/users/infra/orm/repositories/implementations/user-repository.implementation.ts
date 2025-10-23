@@ -1,8 +1,9 @@
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { UserRepositoryProvider } from '../providers/user-repository.provider';
 import { dataSource } from '@src/@config/database/data-source.config';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
+import { UserDTO } from '@src/modules/users/dtos/user.dto';
 
 export class UserRepository implements UserRepositoryProvider {
     private readonly repository: Repository<User>;
@@ -11,23 +12,15 @@ export class UserRepository implements UserRepositoryProvider {
         this.repository = dataSource.getRepository(User);
     }
 
-    public async find(): Promise<User[]> {
-        const users = await this.repository.find();
-        return users;
-    }
+    public async find(options: UserDTO): Promise<User[]> {
+        const query = this.repository.createQueryBuilder('users');
 
-    public async findOne(id: string): Promise<User | null> {
-        const user = await this.repository.findOne({
-            where: { id },
-        });
-        return user;
-    }
+        if(options.id) query.andWhere('users.id = :id', { id: options.id })
+        if(options.email) query.andWhere('users.email = :email', { email: options.email })
+        if(options.name) query.andWhere('users.name = :name', { name: options.name })
+        if(options.github) query.andWhere('users.github = :github', { github: options.github })
 
-    public async findByEmail(email: string): Promise<User | null> {
-        const user = await this.repository.findOne({
-            where: { email },
-        });
-        return user;
+        return query.getMany();
     }
 
     public async create(user: Partial<User>): Promise<User> {
@@ -47,4 +40,3 @@ export class UserRepository implements UserRepositoryProvider {
         }
     }
 }
-
