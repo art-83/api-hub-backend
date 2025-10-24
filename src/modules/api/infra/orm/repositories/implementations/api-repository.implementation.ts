@@ -26,7 +26,7 @@ export class ApiRepository implements ApiRepositoryProvider {
         return query.getMany();
     }
 
-    public async create(api: Partial<Api>): Promise<Api> {
+    public async create(api: ApiDTO): Promise<Api> {
         const newApi = this.repository.create(api);
         const savedApi = await this.repository.save(newApi);
         return savedApi;

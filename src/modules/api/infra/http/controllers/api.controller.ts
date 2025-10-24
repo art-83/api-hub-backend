@@ -11,8 +11,9 @@ export class ApiController {
     public async create(request: Request, response: Response): Promise<Response> {
         try {
             const data = request.body as ApiDTO;
+            const user = request.user;
             const createApiService = container.resolve(CreateApiService);
-            const api = await createApiService.excecute(data);
+            const api = await createApiService.excecute(data, user);
             return response.status(201).json(api);
         } catch (error) {
             if (error instanceof AppError) {
@@ -52,7 +53,6 @@ export class ApiController {
         try {
             const { id } = request.params;
             if (!id) throw new AppError(400, 'Id is required');
-
             const data = request.body as Partial<ApiDTO>;
             const updateApiService = container.resolve(UpdateApiService);
             const api = await updateApiService.excecute(id, data);
