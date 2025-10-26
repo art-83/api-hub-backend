@@ -1,8 +1,7 @@
 import { container, inject, injectable } from 'tsyringe';
-import { UserDTO } from '../dtos/user.dto';
-import { UserRepositoryProvider } from '../infra/orm/repositories/providers/user-repository.provider';
-import { HashProvider } from '../infra/hash/providers/hash.provider';
-import { EncodeJwtService } from '@src/modules/users/infra/auth/services/encode-jwt.service';
+import { RepositoryProvider } from '@src/shared/infra/orm/providers/repository.provider';
+import { HashProvider } from '../hash/providers/hash.provider';
+import { EncodeJwtService } from '../auth/services/encode-jwt.service';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
 import { User } from '../infra/orm/entities/user.entity';
 
@@ -10,12 +9,12 @@ import { User } from '../infra/orm/entities/user.entity';
 export class LoginUserService {
     constructor(
         @inject('UserRepository')
-        private userRepository: UserRepositoryProvider,
+        private userRepository: RepositoryProvider<User>,
         @inject('HashImplementation')
         private hashImplementation: HashProvider,
     ) {}
 
-    public async execute(data: UserDTO): Promise<{
+    public async execute(data: Partial<User>): Promise<{
         user: User;
         token: string;
     }> {

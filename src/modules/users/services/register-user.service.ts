@@ -1,19 +1,19 @@
 import { injectable, inject } from 'tsyringe';
-import { UserRepositoryProvider } from '../infra/orm/repositories/providers/user-repository.provider';
-import { HashProvider } from '../infra/hash/providers/hash.provider';
-import { UserDTO } from '../dtos/user.dto';
+import { RepositoryProvider } from '@src/shared/infra/orm/providers/repository.provider';
+import { HashProvider } from '../hash/providers/hash.provider';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
+import { User } from '../infra/orm/entities/user.entity';
 
 @injectable()
 export class RegisterUserService {
     constructor(
         @inject('UserRepository')
-        private userRepository: UserRepositoryProvider,
+        private userRepository: RepositoryProvider<User>,
         @inject('HashImplementation')
         private hashProvider: HashProvider,
     ) {}
 
-    async execute(data: UserDTO): Promise<UserDTO> {
+    async execute(data: Partial<User>): Promise<Partial<User>> {
         if (!data.email || !data.password || !data.name) {
             throw new AppError(400, 'Missing required fields');
         }

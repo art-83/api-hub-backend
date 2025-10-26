@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { container } from 'tsyringe';
-import { DecodeJwtService } from '@src/modules/users/infra/auth/services/decode-jwt.service';
+import { DecodeJwtService } from '@src/modules/users/auth/services/decode-jwt.service';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
 import { FindUserService } from '@src/modules/users/services/find-user.service';
 

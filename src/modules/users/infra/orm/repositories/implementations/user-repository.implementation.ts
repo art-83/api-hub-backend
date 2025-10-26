@@ -1,24 +1,23 @@
 import { Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
-import { UserRepositoryProvider } from '../providers/user-repository.provider';
 import { dataSource } from '@src/@config/database/data-source.config';
 import { AppError } from '@src/shared/infra/http/errors/app-error';
-import { UserDTO } from '@src/modules/users/dtos/user.dto';
+import { RepositoryProvider } from '@src/shared/infra/orm/providers/repository.provider';
 
-export class UserRepository implements UserRepositoryProvider {
+export class UserRepository implements RepositoryProvider<User> {
     private readonly repository: Repository<User>;
 
     constructor() {
         this.repository = dataSource.getRepository(User);
     }
 
-    public async find(options: UserDTO): Promise<User[]> {
+    public async find(options: Partial<User>): Promise<User[]> {
         const query = this.repository.createQueryBuilder('users');
 
-        if(options.id) query.andWhere('users.id = :id', { id: options.id })
-        if(options.email) query.andWhere('users.email = :email', { email: options.email })
-        if(options.name) query.andWhere('users.name = :name', { name: options.name })
-        if(options.github) query.andWhere('users.github = :github', { github: options.github })
+        if (options.id) query.andWhere('users.id = :id', { id: options.id });
+        if (options.email) query.andWhere('users.email = :email', { email: options.email });
+        if (options.name) query.andWhere('users.name = :name', { name: options.name });
+        if (options.github) query.andWhere('users.github = :github', { github: options.github });
 
         return query.getMany();
     }

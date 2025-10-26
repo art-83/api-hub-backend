@@ -4,13 +4,13 @@ import { isCelebrateError } from 'celebrate';
 
 export class GlobalErrorHandlerMiddleware {
     public use(error: Error, req: Request, res: Response, next: NextFunction) {
+        console.log(error);
         if (isCelebrateError(error)) {
             const errorBody = error.details.get('body') || error.details.get('query') || error.details.get('params');
             return res.status(400).json({
                 message: errorBody?.message,
             });
         }
-
         if (error instanceof AppError) {
             return res.status(error.code).json({
                 message: error.message,

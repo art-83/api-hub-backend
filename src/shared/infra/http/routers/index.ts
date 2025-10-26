@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { apiRouter } from '@src/modules/api/infra/http/routers/api.router';
+import { apiRouter } from '@src/modules/apis/infra/http/routers/api.router';
 
 import { userRouter } from '@src/modules/users/infra/http/routers/user.router';
 
